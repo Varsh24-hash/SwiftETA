@@ -1,0 +1,34 @@
+{
+  "best_cv_mae": 2.1928,
+  "best_params": {
+    "n_estimators": 500,
+    "max_depth": 4,
+    "learning_rate": 0.05,
+    "subsample": 0.9,
+    "colsample_bytree": 0.9,
+    "min_child_weight": 3
+  },
+  "splits": [
+    {
+      "split": "train",
+      "mae_min": 1.0183,
+      "rmse_min": 1.2996,
+      "r2": 0.9992,
+      "within_2.3min_pct": 92.58
+    },
+    {
+      "split": "val",
+      "mae_min": 2.0505,
+      "rmse_min": 3.1047,
+      "r2": 0.9957,
+      "within_2.3min_pct": 69.42
+    },
+    {
+      "split": "test",
+      "mae_min": 2.1038,
+      "rmse_min": 2.9435,
+      "r2": 0.9959,
+      "within_2.3min_pct": 68.56
+    }
+  ]
+}

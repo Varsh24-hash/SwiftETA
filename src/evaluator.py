@@ -133,7 +133,7 @@ if __name__ == "__main__":
         preds = model.predict(X)
 
         reg_m  = regression_metrics(y_r, preds)
-        late_m = late_metrics(y_r, preds)
+        late_m = late_metrics(y_c, preds)
 
         print_section(f"REGRESSION  [{split.upper()}]", reg_m)
         print_section(f"LATE DELIVERY  [{split.upper()}]", late_m)

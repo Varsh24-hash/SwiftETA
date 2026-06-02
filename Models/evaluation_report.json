@@ -1,0 +1,157 @@
+{
+  "train": {
+    "regression": {
+      "MAE": 1.0183,
+      "RMSE": 1.2996,
+      "R2": 0.9992,
+      "MBE (bias)": -0.0006,
+      "P90_abs_error": 2.1078,
+      "P95_abs_error": 2.5948,
+      "Within_1min_%": 57.25,
+      "Within_2.3min_%": 92.58,
+      "Within_5min_%": 99.95
+    },
+    "late_delivery": {
+      "accuracy": 0.9992,
+      "late_precision": 0.9997,
+      "late_recall": 0.9995,
+      "late_f1": 0.9996,
+      "confusion_matrix": [
+        [
+          18,
+          1
+        ],
+        [
+          2,
+          3740
+        ]
+      ],
+      "late_rate_actual": 0.9949,
+      "late_rate_pred": 0.9947
+    }
+  },
+  "val": {
+    "regression": {
+      "MAE": 2.0505,
+      "RMSE": 3.1047,
+      "R2": 0.9957,
+      "MBE (bias)": -0.2716,
+      "P90_abs_error": 4.2612,
+      "P95_abs_error": 5.4646,
+      "Within_1min_%": 35.44,
+      "Within_2.3min_%": 69.42,
+      "Within_5min_%": 94.17
+    },
+    "late_delivery": {
+      "accuracy": 0.9976,
+      "late_precision": 0.9976,
+      "late_recall": 1.0,
+      "late_f1": 0.9988,
+      "confusion_matrix": [
+        [
+          2,
+          1
+        ],
+        [
+          0,
+          409
+        ]
+      ],
+      "late_rate_actual": 0.9927,
+      "late_rate_pred": 0.9951
+    }
+  },
+  "test": {
+    "regression": {
+      "MAE": 2.1038,
+      "RMSE": 2.9435,
+      "R2": 0.9959,
+      "MBE (bias)": -0.1737,
+      "P90_abs_error": 4.5297,
+      "P95_abs_error": 6.1406,
+      "Within_1min_%": 31.56,
+      "Within_2.3min_%": 68.56,
+      "Within_5min_%": 92.74
+    },
+    "late_delivery": {
+      "accuracy": 0.9964,
+      "late_precision": 0.9964,
+      "late_recall": 1.0,
+      "late_f1": 0.9982,
+      "confusion_matrix": [
+        [
+          1,
+          3
+        ],
+        [
+          0,
+          823
+        ]
+      ],
+      "late_rate_actual": 0.9952,
+      "late_rate_pred": 0.9988
+    }
+  },
+  "feature_importance": [
+    {
+      "feature": "feat_distance_x_weather",
+      "importance": 0.3282549
+    },
+    {
+      "feature": "weather_mult",
+      "importance": 0.30385885
+    },
+    {
+      "feature": "weather_delay_min",
+      "importance": 0.2075489
+    },
+    {
+      "feature": "tod_mult",
+      "importance": 0.07054473
+    },
+    {
+      "feature": "ch_distance_km",
+      "importance": 0.040433377
+    },
+    {
+      "feature": "feat_transit_x_tod",
+      "importance": 0.017384257
+    },
+    {
+      "feature": "segment_count",
+      "importance": 0.007881235
+    },
+    {
+      "feature": "stage_delay_prep",
+      "importance": 0.006538057
+    },
+    {
+      "feature": "turn_count",
+      "importance": 0.003403421
+    },
+    {
+      "feature": "feat_prep_x_batch",
+      "importance": 0.002244446
+    },
+    {
+      "feature": "road_residential_frac",
+      "importance": 0.002224935
+    },
+    {
+      "feature": "stage_delay_pickup",
+      "importance": 0.0017563226
+    },
+    {
+      "feature": "road_highway_frac",
+      "importance": 0.0017472031
+    },
+    {
+      "feature": "road_primary_frac",
+      "importance": 0.0014560523
+    },
+    {
+      "feature": "stage_delay_transit",
+      "importance": 0.0011765508
+    }
+  ]
+}
