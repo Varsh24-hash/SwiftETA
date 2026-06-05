@@ -10,9 +10,9 @@ SwiftETA is a full-stack delivery intelligence system that predicts food deliver
 
 | Layer | Owner | What it does |
 |-------|-------|-------------|
-| **P1 – Graph Engine** | Person 1 | Loads Bengaluru OSM road graph, runs Contraction Hierarchy preprocessing, executes bidirectional Dijkstra to extract route distance, segment count, turn count, and road-type fractions |
-| **P2 – DAG Scheduler** | Person 2 | Models the delivery lifecycle as a DAG, runs Kahn's topological sort + Critical Path Method (CPM), and applies greedy interval scheduling for multi-order batching |
-| **P3 – ML Model + Dashboard** | Person 3 | Engineers features from P1+P2 outputs, trains XGBoost (GBDT), and serves predictions through a 15-feature Streamlit dashboard |
+| **Graph Engine** | Loads Bengaluru OSM road graph, runs Contraction Hierarchy preprocessing, executes bidirectional Dijkstra to extract route distance, segment count, turn count, and road-type fractions |
+| **DAG Scheduler** | Models the delivery lifecycle as a DAG, runs Kahn's topological sort + Critical Path Method (CPM), and applies greedy interval scheduling for multi-order batching |
+| **ML Model + Dashboard** | Engineers features from P1+P2 outputs, trains XGBoost (GBDT), and serves predictions through a 15-feature Streamlit dashboard |
 
 **Ground-truth ETA formula:**
 
@@ -22,25 +22,25 @@ ETA = route_time (P1) + cpm_eta (P2) + weather_delay + random_noise
 
 ---
 
-## ✨ Dashboard Features (15 total)
+## ✨ Dashboard Features
 
 | # | Feature | Description |
 |---|---------|-------------|
-| 1 | 🚀 **ETA Predictor** | Real-time prediction — enter location, weather, time, batch size → get ETA + confidence + risk |
-| 2 | 🗺️ **Route Visualizer** | Live Bengaluru map showing restaurant → customer route with P1 graph stats |
-| 3 | ⚙️ **ETA Breakdown** | Waterfall chart decomposing ETA into prep, pickup, travel, weather, and batching delay |
-| 4 | 🌧️ **What-If Simulator** | Sliders for weather, hour, batch size, traffic — ETA updates in real time |
-| 5 | 🔥 **Delay Risk Meter** | Fuel-gauge style indicator showing LOW / MEDIUM / HIGH delay probability |
-| 6 | 🧠 **Model Explainer** | Feature importance bar chart + per-prediction explanation of top contributing factors |
-| 7 | 🏆 **Restaurant Recommender** | Compares all Bengaluru areas by ETA and recommends the fastest pickup zone |
-| 8 | 📈 **Peak-Hour Analytics** | Hour-by-hour average ETA chart highlighting 8–10 AM and 5–8 PM congestion spikes |
-| 9 | 🚛 **Fleet Intelligence Panel** | Ops dashboard showing avg batch size, distance, ETA, and late delivery rate across a fleet |
-| 10 | ⚠️ **Bottleneck Detection** | Uses P2 CPM stage delays to identify which stage (Prep / Pickup / Transit) causes the most delay |
-| 11 | 🎯 **Delivery Heatmap** | Bengaluru scatter map coloured Green=Fast / Red=Slow by predicted ETA |
-| 12 | 🔮 **ETA Forecast** | Predicts ETA distribution for future orders given a time slot + weather condition |
-| 13 | 🥇 **Delivery Scorecard** | Generates Route Efficiency, Traffic Impact, Weather Impact, and Operational scores (radar chart) |
-| 14 | 🤖 **AI Assistant** | Chat interface — ask "Why is ETA high?" and get a quantified, human-readable breakdown |
-| 15 | ⭐ **Live Comparison Mode** | Side-by-side A vs B scenario comparison with radar + bar charts and automatic winner detection |
+| 1 |  **ETA Predictor** | Real-time prediction — enter location, weather, time, batch size → get ETA + confidence + risk |
+| 2 |  **Route Visualizer** | Live Bengaluru map showing restaurant → customer route with P1 graph stats |
+| 3 |  **ETA Breakdown** | Waterfall chart decomposing ETA into prep, pickup, travel, weather, and batching delay |
+| 4 |  **What-If Simulator** | Sliders for weather, hour, batch size, traffic — ETA updates in real time |
+| 5 |  **Delay Risk Meter** | Fuel-gauge style indicator showing LOW / MEDIUM / HIGH delay probability |
+| 6 |  **Model Explainer** | Feature importance bar chart + per-prediction explanation of top contributing factors |
+| 7 |  **Restaurant Recommender** | Compares all Bengaluru areas by ETA and recommends the fastest pickup zone |
+| 8 |  **Peak-Hour Analytics** | Hour-by-hour average ETA chart highlighting 8–10 AM and 5–8 PM congestion spikes |
+| 9 |  **Fleet Intelligence Panel** | Ops dashboard showing avg batch size, distance, ETA, and late delivery rate across a fleet |
+| 10 |  **Bottleneck Detection** | Uses P2 CPM stage delays to identify which stage (Prep / Pickup / Transit) causes the most delay |
+| 11 |  **Delivery Heatmap** | Bengaluru scatter map coloured Green=Fast / Red=Slow by predicted ETA |
+| 12 |  **ETA Forecast** | Predicts ETA distribution for future orders given a time slot + weather condition |
+| 13 |  **Delivery Scorecard** | Generates Route Efficiency, Traffic Impact, Weather Impact, and Operational scores (radar chart) |
+| 14 |  **AI Assistant** | Chat interface — ask "Why is ETA high?" and get a quantified, human-readable breakdown |
+| 15 |  **Live Comparison Mode** | Side-by-side A vs B scenario comparison with radar + bar charts and automatic winner detection |
 
 ---
 
@@ -103,7 +103,7 @@ SwiftETA/
 
 ## 🧠 Algorithms Used
 
-### Person 1 — Graph Engine
+### Graph Engine
 
 | Algorithm | Purpose |
 |-----------|---------|
@@ -111,7 +111,7 @@ SwiftETA/
 | **Topological Sort** | Orders nodes by importance for the contraction sequence |
 | **Bidirectional Dijkstra** | Runs upward searches from both source and target on the contracted graph, meeting in the middle for fast shortest-path queries |
 
-### Person 2 — DAG Scheduler
+### DAG Scheduler
 
 | Algorithm | Purpose |
 |-----------|---------|
@@ -120,7 +120,7 @@ SwiftETA/
 | **Greedy Interval Scheduling** | Batches multiple orders by deadline overlap using Earliest Deadline First (EDF) — maximises orders per delivery run |
 | **Gamma Distribution Sampling** | Models stochastic prep and transit times; propagates uncertainty through DAG stages |
 
-### Person 3 — ML Model
+### ML Model
 
 | Component | Detail |
 |-----------|--------|
@@ -154,7 +154,7 @@ source .venv/bin/activate        # macOS/Linux
 pip install -r src/Dashboard/requirements_dashboard.txt
 ```
 
-### 4. Download the Bengaluru road graph (P1)
+### 4. Download the Bengaluru road graph
 
 ```bash
 cd src
@@ -162,13 +162,13 @@ python graph_loader.py           # saves Data/bengaluru.graphml
 python contraction.py            # saves Data/contracted_bengaluru.graphml
 ```
 
-### 5. Collect training data (P3)
+### 5. Collect training data
 
 ```bash
 python data_collector.py         # saves Data/train.csv, val.csv, test.csv
 ```
 
-### 6. Train the model (P3)
+### 6. Train the model 
 
 ```bash
 python feature_engineering.py   # saves Data/*_features.csv + Models/scaler.pkl
@@ -185,7 +185,6 @@ streamlit run app.py
 
 Open **http://localhost:8501** in your browser.
 
-> **Note:** The dashboard works without a trained model — it falls back to domain-derived values from P1+P2 directly. Steps 5–6 are optional but recommended for full ML predictions.
 
 ---
 
