@@ -1,0 +1,243 @@
+# 🛵 SwiftETA — Bengaluru Delivery Intelligence Platform
+
+> ML-powered delivery ETA prediction combining graph algorithms, DAG scheduling, and XGBoost — built on real Bengaluru road network data.
+
+---
+
+## 📌 Overview
+
+SwiftETA is a full-stack delivery intelligence system that predicts food delivery ETAs for Bengaluru using a three-layer pipeline:
+
+| Layer | Owner | What it does |
+|-------|-------|-------------|
+| **P1 – Graph Engine** | Person 1 | Loads Bengaluru OSM road graph, runs Contraction Hierarchy preprocessing, executes bidirectional Dijkstra to extract route distance, segment count, turn count, and road-type fractions |
+| **P2 – DAG Scheduler** | Person 2 | Models the delivery lifecycle as a DAG, runs Kahn's topological sort + Critical Path Method (CPM), and applies greedy interval scheduling for multi-order batching |
+| **P3 – ML Model + Dashboard** | Person 3 | Engineers features from P1+P2 outputs, trains XGBoost (GBDT), and serves predictions through a 15-feature Streamlit dashboard |
+
+**Ground-truth ETA formula:**
+
+```
+ETA = route_time (P1) + cpm_eta (P2) + weather_delay + random_noise
+```
+
+---
+
+## ✨ Dashboard Features (15 total)
+
+| # | Feature | Description |
+|---|---------|-------------|
+| 1 | 🚀 **ETA Predictor** | Real-time prediction — enter location, weather, time, batch size → get ETA + confidence + risk |
+| 2 | 🗺️ **Route Visualizer** | Live Bengaluru map showing restaurant → customer route with P1 graph stats |
+| 3 | ⚙️ **ETA Breakdown** | Waterfall chart decomposing ETA into prep, pickup, travel, weather, and batching delay |
+| 4 | 🌧️ **What-If Simulator** | Sliders for weather, hour, batch size, traffic — ETA updates in real time |
+| 5 | 🔥 **Delay Risk Meter** | Fuel-gauge style indicator showing LOW / MEDIUM / HIGH delay probability |
+| 6 | 🧠 **Model Explainer** | Feature importance bar chart + per-prediction explanation of top contributing factors |
+| 7 | 🏆 **Restaurant Recommender** | Compares all Bengaluru areas by ETA and recommends the fastest pickup zone |
+| 8 | 📈 **Peak-Hour Analytics** | Hour-by-hour average ETA chart highlighting 8–10 AM and 5–8 PM congestion spikes |
+| 9 | 🚛 **Fleet Intelligence Panel** | Ops dashboard showing avg batch size, distance, ETA, and late delivery rate across a fleet |
+| 10 | ⚠️ **Bottleneck Detection** | Uses P2 CPM stage delays to identify which stage (Prep / Pickup / Transit) causes the most delay |
+| 11 | 🎯 **Delivery Heatmap** | Bengaluru scatter map coloured Green=Fast / Red=Slow by predicted ETA |
+| 12 | 🔮 **ETA Forecast** | Predicts ETA distribution for future orders given a time slot + weather condition |
+| 13 | 🥇 **Delivery Scorecard** | Generates Route Efficiency, Traffic Impact, Weather Impact, and Operational scores (radar chart) |
+| 14 | 🤖 **AI Assistant** | Chat interface — ask "Why is ETA high?" and get a quantified, human-readable breakdown |
+| 15 | ⭐ **Live Comparison Mode** | Side-by-side A vs B scenario comparison with radar + bar charts and automatic winner detection |
+
+---
+
+## 🏗️ Project Structure
+
+```
+SwiftETA/
+├── src/
+│   ├── graph_loader.py           # P1: Download & save Bengaluru OSM graph
+│   ├── contraction.py            # P1: Contraction Hierarchy preprocessing
+│   ├── dijkstra.py               # P1: Bidirectional Dijkstra query
+│   ├── benchmark.py              # P1: Query latency benchmarking
+│   │
+│   ├── dag_builder.py            # P2: Delivery lifecycle DAG definition
+│   ├── kahn_sort.py              # P2: Kahn's topological sort
+│   ├── cpm.py                    # P2: Critical Path Method
+│   ├── stochastic_weights.py     # P2: Gamma-distributed stage durations
+│   ├── batch_scheduler.py        # P2: Greedy interval scheduling
+│   │
+│   ├── data_collector.py         # P3: Collect orders using real P1+P2 outputs
+│   ├── feature_engineering.py    # P3: Build ML-ready feature matrix
+│   ├── model_trainer.py          # P3: Train & tune XGBoost with cross-validation
+│   ├── evaluator.py              # P3: Evaluate MAE, RMSE, R², late delivery rate
+│   │
+│   └── Dashboard/
+│       ├── app.py                # Streamlit entry point (landing page)
+│       ├── engine.py             # Shared P1+P2+P3 computation layer
+│       ├── requirements_dashboard.txt
+│       └── pages/
+│           ├── 1_ETA_Predictor.py
+│           ├── 2_Route_Visualizer.py
+│           ├── 3_ETA_Breakdown.py
+│           ├── 4_WhatIf_Simulator.py
+│           ├── 5_Delay_Risk_Meter.py
+│           ├── 6_Model_Explainer.py
+│           ├── 7_Restaurant_Recommender.py
+│           ├── 8_Peak_Analytics.py
+│           ├── 9_Fleet_Panel.py
+│           ├── 10_Heatmap_Forecast.py
+│           ├── 11_Scorecard.py
+│           ├── 12_AI_Assistant.py
+│           └── 13_Comparison_Mode.py
+│
+├── Data/
+│   ├── bengaluru.graphml         # Raw OSM graph (generated by graph_loader.py)
+│   ├── contracted_bengaluru.graphml  # CH-preprocessed graph
+│   ├── all_orders.csv            # Full simulated dataset
+│   ├── train.csv / val.csv / test.csv
+│   └── predictions_test.csv      # Model predictions vs actuals
+│
+└── Models/
+    ├── xgboost_eta.json
+    ├── xgboost_eta.pkl
+    ├── scaler.pkl
+    ├── feature_importance.csv
+    └── evaluation_report.json
+```
+
+---
+
+## 🧠 Algorithms Used
+
+### Person 1 — Graph Engine
+
+| Algorithm | Purpose |
+|-----------|---------|
+| **Contraction Hierarchies (CH)** | Preprocesses Bengaluru OSM graph by contracting low-importance nodes and inserting shortcut edges — enables sub-millisecond queries on 200K+ node graphs |
+| **Topological Sort** | Orders nodes by importance for the contraction sequence |
+| **Bidirectional Dijkstra** | Runs upward searches from both source and target on the contracted graph, meeting in the middle for fast shortest-path queries |
+
+### Person 2 — DAG Scheduler
+
+| Algorithm | Purpose |
+|-----------|---------|
+| **Kahn's Topological Sort** | Resolves task dependency ordering across delivery stages: `placed → accepted → prep → pickup → transit → delivered` |
+| **Critical Path Method (CPM)** | Computes earliest/latest finish times and slack per stage — identifies which delay cascades most into final ETA |
+| **Greedy Interval Scheduling** | Batches multiple orders by deadline overlap using Earliest Deadline First (EDF) — maximises orders per delivery run |
+| **Gamma Distribution Sampling** | Models stochastic prep and transit times; propagates uncertainty through DAG stages |
+
+### Person 3 — ML Model
+
+| Component | Detail |
+|-----------|--------|
+| **XGBoost (GBDT)** | Gradient boosted decision trees trained on P1+P2 combined features + temporal + weather |
+| **Feature Engineering** | P1 graph features, P2 DAG features, interaction terms (`distance × weather`, `transit × tod`, `prep × batch`) |
+| **Cross-Validation** | 5-fold time-ordered CV (no shuffle) across 3 hyperparameter configurations |
+| **Target** | MAE ≤ ±2.3 min on validation set |
+
+---
+
+## ⚙️ Setup & Installation
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Varsh24-hash/SwiftETA.git
+cd SwiftETA
+```
+
+### 2. Create a virtual environment
+
+```bash
+python -m venv .venv
+source .venv/bin/activate        # macOS/Linux
+.venv\Scripts\activate           # Windows
+```
+
+### 3. Install dependencies
+
+```bash
+pip install -r src/Dashboard/requirements_dashboard.txt
+```
+
+### 4. Download the Bengaluru road graph (P1)
+
+```bash
+cd src
+python graph_loader.py           # saves Data/bengaluru.graphml
+python contraction.py            # saves Data/contracted_bengaluru.graphml
+```
+
+### 5. Collect training data (P3)
+
+```bash
+python data_collector.py         # saves Data/train.csv, val.csv, test.csv
+```
+
+### 6. Train the model (P3)
+
+```bash
+python feature_engineering.py   # saves Data/*_features.csv + Models/scaler.pkl
+python model_trainer.py         # saves Models/xgboost_eta.pkl
+python evaluator.py             # saves Models/evaluation_report.json
+```
+
+### 7. Launch the dashboard
+
+```bash
+cd Dashboard
+streamlit run app.py
+```
+
+Open **http://localhost:8501** in your browser.
+
+> **Note:** The dashboard works without a trained model — it falls back to domain-derived values from P1+P2 directly. Steps 5–6 are optional but recommended for full ML predictions.
+
+---
+
+## 📊 Model Performance
+
+| Metric | Value |
+|--------|-------|
+| Target MAE | ≤ ±2.3 min |
+| Evaluation | 5-fold time-ordered cross-validation |
+| Model | XGBoost GBDT (`reg:squarederror`) |
+| Features | P1 graph (7) + P2 DAG (8) + temporal (6) + interactions (4) = **25 features** |
+
+**Top features by importance:**
+
+1. `ch_distance_km` — route distance from P1 Dijkstra
+2. `stage_delay_transit` — P2 CPM transit stage duration
+3. `weather_mult` — weather condition multiplier
+4. `stage_delay_prep` — P2 CPM food prep duration
+5. `tod_mult` — time-of-day congestion factor
+
+---
+
+## 🗺️ Data Sources
+
+- **Road network:** [OpenStreetMap](https://www.openstreetmap.org/) via [`osmnx`](https://github.com/gboeing/osmnx) — Bengaluru, Karnataka, India (`network_type="drive"`)
+- **Delivery lifecycle:** Simulated using P2 DAG with Gamma-distributed stage durations calibrated to real food delivery benchmarks
+- **Weather:** Sampled from `{clear, cloudy, rainy, heavy_rain}` profiles with realistic Bengaluru probabilities
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Libraries |
+|-------|-----------|
+| Graph processing | `osmnx`, `networkx` |
+| Data | `pandas`, `numpy` |
+| ML | `xgboost`, `scikit-learn`, `joblib` |
+| Visualisation | `plotly`, `streamlit` |
+| Statistics | `scipy` (Gamma distribution) |
+
+---
+
+## 👥 Team
+
+| Person | Responsibility |
+|--------|---------------|
+| **P1** | Graph Engine — OSM loading, Contraction Hierarchies, Dijkstra |
+| **P2** | DAG Scheduler — Kahn's sort, CPM, stochastic weights, batch scheduling |
+| **P3** | ML Pipeline + Dashboard — feature engineering, XGBoost, 15-feature Streamlit app |
+
+---
+
+## 📄 License
+
+This project was built as an academic demonstration. All road data is sourced from OpenStreetMap under the [ODbL license](https://www.openstreetmap.org/copyright).
