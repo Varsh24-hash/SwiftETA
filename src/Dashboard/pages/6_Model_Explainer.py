@@ -10,7 +10,7 @@ from engine import (WEATHER_PROFILES, tod_mult, run_p2, compute_route_time,
 
 st.set_page_config(page_title="Model Explainer", page_icon="🧠", layout="wide")
 
-st.markdown("# 🧠 Why Did The Model Predict This?")
+st.markdown("# Why Did The Model Predict This?")
 st.caption("Feature 6 — Feature importance + per-prediction explanation  |  Faculty rarely see explainable AI")
 st.divider()
 

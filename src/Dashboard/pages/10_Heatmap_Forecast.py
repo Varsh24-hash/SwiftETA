@@ -11,7 +11,7 @@ from engine import WEATHER_PROFILES, tod_mult, run_p2, compute_route_time, compu
 
 st.set_page_config(page_title="Heatmap & Forecast", page_icon="🎯", layout="wide")
 
-st.markdown("# 🎯 Delivery Heatmap + ETA Forecast")
+st.markdown("# Delivery Heatmap + ETA Forecast")
 st.caption("Feature 11 + 12 — Green=Fast / Red=Slow on Bengaluru map · Predict ETA distribution for future orders")
 st.divider()
 

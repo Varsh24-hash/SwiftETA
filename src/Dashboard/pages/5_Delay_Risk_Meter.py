@@ -9,7 +9,7 @@ from engine import WEATHER_PROFILES, tod_mult, run_p2, compute_route_time, compu
 
 st.set_page_config(page_title="Delay Risk Meter", page_icon="🔥", layout="wide")
 
-st.markdown("# 🔥 Delay Risk Meter")
+st.markdown("# Delay Risk Meter")
 st.caption("Feature 5 — Like a fuel gauge for delivery risk  |  This feels like a production product")
 st.divider()
 

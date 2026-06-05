@@ -7,7 +7,7 @@ from engine import WEATHER_PROFILES, tod_mult, run_p2, compute_route_time, compu
 
 st.set_page_config(page_title="AI Assistant", page_icon="🤖", layout="wide")
 
-st.markdown("# 🤖 AI Assistant")
+st.markdown("# AI Assistant")
 st.caption("Feature 14 — Ask why ETA is high and get a quantified, human-readable explanation  |  Huge wow factor")
 st.divider()
 

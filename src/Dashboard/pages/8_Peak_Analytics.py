@@ -9,7 +9,7 @@ from engine import WEATHER_PROFILES, tod_mult, run_p2, compute_route_time, compu
 
 st.set_page_config(page_title="Peak-Hour Analytics", page_icon="📈", layout="wide")
 
-st.markdown("# 📈 Peak-Hour Analytics")
+st.markdown("# Peak-Hour Analytics")
 st.caption("Feature 8 — Hour vs Average ETA  |  Faculty immediately understand: 8-10 AM spike, 5-8 PM spike")
 st.divider()
 

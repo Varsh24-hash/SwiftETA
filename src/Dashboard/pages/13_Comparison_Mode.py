@@ -9,7 +9,7 @@ from engine import WEATHER_PROFILES, tod_mult, run_p2, compute_route_time, compu
 
 st.set_page_config(page_title="Live Comparison", page_icon="⭐", layout="wide")
 
-st.markdown("# ⭐ Live Comparison Mode")
+st.markdown("# Live Comparison Mode")
 st.caption("Feature 15 — Side-by-side scenario comparison  |  ETA · Delay Risk · Scorecard")
 st.divider()
 

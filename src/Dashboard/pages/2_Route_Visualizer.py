@@ -12,7 +12,7 @@ from engine import WEATHER_PROFILES, tod_mult, run_p2, compute_route_time
 
 st.set_page_config(page_title="Route Visualizer", page_icon="🗺️", layout="wide")
 
-st.markdown("# 🗺️ Live Route Visualization")
+st.markdown("#Live Route Visualization")
 st.caption("Feature 2  |  Bengaluru map with P1 graph engine stats")
 st.divider()
 

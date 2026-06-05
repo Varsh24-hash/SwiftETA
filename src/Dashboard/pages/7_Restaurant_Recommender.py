@@ -9,7 +9,7 @@ from engine import WEATHER_PROFILES, tod_mult, run_p2, compute_route_time, compu
 
 st.set_page_config(page_title="Restaurant Recommender", page_icon="🏆", layout="wide")
 
-st.markdown("# 🏆 Best Restaurant Recommendation")
+st.markdown("# Best Restaurant Recommendation")
 st.caption("Feature 7 — Now it's optimization, not just prediction  |  Ranks all areas by ETA")
 st.divider()
 

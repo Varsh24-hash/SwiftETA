@@ -11,7 +11,7 @@ from engine import run_p2, WEATHER_PROFILES, tod_mult, compute_route_time, compu
 
 st.set_page_config(page_title="Fleet Intelligence", page_icon="🚛", layout="wide")
 
-st.markdown("# 🚛 Fleet Intelligence Panel")
+st.markdown("# Fleet Intelligence Panel")
 st.caption("Feature 9 + 10 — Operations dashboard + Bottleneck Detection using P2 CPM results")
 st.divider()
 

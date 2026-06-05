@@ -15,7 +15,7 @@ from engine import (
 
 st.set_page_config(page_title="ETA Predictor", page_icon="🚀", layout="wide")
 
-st.markdown("# 🚀 Real-Time ETA Predictor")
+st.markdown("# Real-Time ETA Predictor")
 st.caption("Feature 1 — Main Demo  |  Uses P1 graph features + P2 DAG pipeline")
 st.divider()
 

@@ -8,7 +8,7 @@ from engine import WEATHER_PROFILES, tod_mult, run_p2, compute_route_time, compu
 
 st.set_page_config(page_title="ETA Breakdown", page_icon="⚙️", layout="wide")
 
-st.markdown("# ⚙️ ETA Breakdown")
+st.markdown("# ETA Breakdown")
 st.caption("Feature 3 — Instead of 'ETA = X min', see exactly where time goes  |  Uses P2 stage delays")
 st.divider()
 
