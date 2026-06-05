@@ -112,12 +112,18 @@ st.divider()
 st.markdown("### 🕸️ Scorecard Radar Comparison")
 cats = ["Route Efficiency","Traffic Impact","Weather Impact","Operational"]
 
+def hex_to_rgba(hex_color: str, alpha: float = 0.15) -> str:
+    """Convert #rrggbb to rgba(r,g,b,alpha) for Plotly fillcolor."""
+    h = hex_color.lstrip("#")
+    r, g, b = int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16)
+    return f"rgba({r},{g},{b},{alpha})"
+
 fig_radar = go.Figure()
 for label, sc, color in [("Scenario A", sc_a, "#43d9ad"), ("Scenario B", sc_b, "#ff6b6b")]:
     vals = [sc["scores"][c] for c in cats] + [sc["scores"][cats[0]]]
     fig_radar.add_trace(go.Scatterpolar(
         r=vals, theta=cats + [cats[0]],
-        fill="toself", fillcolor=color.replace(")", ",0.12)").replace("rgb","rgba") if "rgb" in color else color+"26",
+        fill="toself", fillcolor=hex_to_rgba(color, 0.15),
         line=dict(color=color, width=2),
         name=label,
     ))
