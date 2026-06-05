@@ -227,16 +227,6 @@ Open **http://localhost:8501** in your browser.
 
 ---
 
-## 👥 Team
-
-| Person | Responsibility |
-|--------|---------------|
-| **P1** | Graph Engine — OSM loading, Contraction Hierarchies, Dijkstra |
-| **P2** | DAG Scheduler — Kahn's sort, CPM, stochastic weights, batch scheduling |
-| **P3** | ML Pipeline + Dashboard — feature engineering, XGBoost, 15-feature Streamlit app |
-
----
-
 ## 📄 License
 
 This project was built as an academic demonstration. All road data is sourced from OpenStreetMap under the [ODbL license](https://www.openstreetmap.org/copyright).
