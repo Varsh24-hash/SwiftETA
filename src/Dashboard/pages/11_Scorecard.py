@@ -9,7 +9,7 @@ from engine import WEATHER_PROFILES, tod_mult, run_p2, compute_route_time, compu
 st.set_page_config(page_title="Delivery Scorecard", page_icon="🥇", layout="wide")
 
 st.markdown("# Delivery Scorecard")
-st.caption("Feature 13 — Route / Traffic / Weather / Ops scores  |  People love scores")
+st.caption("Feature 13 — Route / Traffic / Weather / Ops scores")
 st.divider()
 
 ROAD_PROFILES = {

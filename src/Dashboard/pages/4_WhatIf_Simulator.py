@@ -10,7 +10,7 @@ from engine import WEATHER_PROFILES, tod_mult, run_p2, compute_route_time, compu
 st.set_page_config(page_title="What-If Simulator", page_icon="🌧️", layout="wide")
 
 st.markdown("# What-If Simulator")
-st.caption("Feature 4 — Tweak conditions and see ETA change in real time  |  Faculty love interactive systems")
+st.caption("Feature 4 — Tweak conditions and see ETA change in real time ")
 st.divider()
 
 BASE_DIST = 7.0

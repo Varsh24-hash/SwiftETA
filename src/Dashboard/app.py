@@ -112,23 +112,23 @@ st.divider()
 st.markdown("### 📋 Dashboard Pages")
 
 pages = [
-    ("🚀", "1 · ETA Predictor",        "Real-time prediction from route + DAG + weather"),
-    ("🗺️", "2 · Route Visualizer",      "Live route on Bengaluru map with P1 stats"),
-    ("⚙️", "3 · ETA Breakdown",         "Full decomposition: prep + pickup + transit + weather"),
-    ("🌧️", "4 · What-If Simulator",     "Sliders for weather, hour, batch size, traffic"),
-    ("🔥", "5 · Delay Risk Meter",       "Fuel-gauge style late-delivery probability"),
-    ("🧠", "6 · Model Explainer",        "Feature importance → why this ETA?"),
-    ("🏆", "7 · Restaurant Recommender","Compare areas by ETA, recommend fastest"),
-    ("📈", "8 · Peak-Hour Analytics",    "Hour-by-hour average ETA chart"),
-    ("🚛", "9 · Fleet Intelligence",     "Ops dashboard + bottleneck detection (CPM)"),
-    ("🎯", "10 · Heatmap + Forecast",    "Delivery heatmap + future ETA distribution"),
-    ("🥇", "11 · Delivery Scorecard",    "Route / Traffic / Weather / Ops scores"),
-    ("🤖", "12 · AI Assistant",          "Natural-language ETA explanation"),
-    ("⭐", "13 · Live Comparison",       "Side-by-side scenario comparison"),
+    ( "1 · ETA Predictor",        "Real-time prediction from route + DAG + weather"),
+    ( "2 · Route Visualizer",      "Live route on Bengaluru map with P1 stats"),
+    ( "3 · ETA Breakdown",         "Full decomposition: prep + pickup + transit + weather"),
+    ( "4 · What-If Simulator",     "Sliders for weather, hour, batch size, traffic"),
+    ( "5 · Delay Risk Meter",       "Fuel-gauge style late-delivery probability"),
+    ( "6 · Model Explainer",        "Feature importance → why this ETA?"),
+    ( "7 · Restaurant Recommender","Compare areas by ETA, recommend fastest"),
+    ( "8 · Peak-Hour Analytics",    "Hour-by-hour average ETA chart"),
+    ( "9 · Fleet Intelligence",     "Ops dashboard + bottleneck detection (CPM)"),
+    ( "10 · Heatmap + Forecast",    "Delivery heatmap + future ETA distribution"),
+    ( "11 · Delivery Scorecard",    "Route / Traffic / Weather / Ops scores"),
+    ( "12 · AI Assistant",          "Natural-language ETA explanation"),
+    ( "13 · Live Comparison",       "Side-by-side scenario comparison"),
 ]
 
-for emoji, name, desc in pages:
-    st.markdown(f"**{emoji} {name}** — {desc}")
+for name, desc in pages:
+    st.markdown(f"**{name}** — {desc}")
 
 st.divider()
 st.caption("👈 Use the sidebar to navigate between pages.")
